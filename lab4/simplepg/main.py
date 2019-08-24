@@ -349,8 +349,15 @@ def main(env_id, batch_size, discount, learning_rate, n_itrs, render, use_baseli
                 :param reg: A scalar
                 :return: A matrix of size |A| * (|S|+1)
                 """
-                natural_grad = np.zeros_like(grad)
-                "*** YOUR CODE HERE ***"
+                # First ensure that Fisher inf. matrix is positive definite
+                F_inv = np.linalg.inv(F + reg * np.eye(*F.shape))
+                
+                # Compute natural gradient with flattened version
+                natural_grad = F_inv.dot(grad.flatten())
+                
+                # Reshape back to the g shape
+                natural_grad = natural_grad.reshape(grad.shape)
+                
                 return natural_grad
 
             def compute_step_size(F, natural_grad, natural_step_size):
@@ -360,8 +367,17 @@ def main(env_id, batch_size, discount, learning_rate, n_itrs, render, use_baseli
                 :param natural_step_size: A scalar
                 :return: A scalar
                 """
-                step_size = 0.
-                "*** YOUR CODE HERE ***"
+                
+                # Flatten the natural gradient again
+                natural_grad = natural_grad.flatten()
+                
+                # The computation is performed on accordance with
+                # Formula from the solution footnote
+                denominator = natural_grad.T.dot(F).dot(natural_grad)
+                nominator = 2 * natural_step_size
+                
+                step_size = np.sqrt(nominator / denominator)
+                
                 return step_size
 
             test_once(compute_fisher_matrix)
