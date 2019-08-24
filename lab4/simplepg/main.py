@@ -120,9 +120,20 @@ def cartpole_get_grad_logp_action(theta, ob, action):
     :param action: An integer
     :return: A matrix of size |A| * (|S|+1)
     """
-    grad = np.zeros_like(theta)
-    "*** YOUR CODE HERE ***"
-    return grad
+    # Create empty array for storing actions
+    a = np.zeros(theta.shape[0])
+    
+    # Set current action
+    a[action] = 1
+    
+    # Compute the softmax probability of the actions
+    # Refer to p. 3.6 softmax formula
+    softmax_prob = softmax(compute_logits(theta, ob))
+    
+    ob1 = include_bias(ob)
+    # Compute the return gradient similarly as for the point example
+    
+    return np.outer(a - softmax_prob, ob1)
 
 
 def cartpole_get_action(theta, ob, rng=np.random):
