@@ -287,7 +287,11 @@ def main(env_id, batch_size, discount, learning_rate, n_itrs, render, use_baseli
             """
             baselines = np.zeros(len(all_returns))
             for t in range(len(all_returns)):
-                "*** YOUR CODE HERE ***"
+                # Use trajectories from previous episodes to compute the baseline
+                if len(all_returns[t]) > 0:
+                    # We need to check do we have any trajectories at all
+                    # If not the default value of zero will be remaining
+                    baselines[t] = np.mean(all_returns[t])
             return baselines
 
         if use_baseline:
