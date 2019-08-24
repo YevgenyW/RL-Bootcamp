@@ -253,9 +253,10 @@ def main(env_id, batch_size, discount, learning_rate, n_itrs, render, use_baseli
                     matrix of size |A| * (|S|+1) )
                     :return: A tuple, consisting of a scalar and a matrix of size |A| * (|S|+1)
                     """
-                    R_t = 0.
-                    pg_theta = np.zeros_like(theta)
-                    "*** YOUR CODE HERE ***"
+                    # Use the formula from the lab instructions, part 3.4
+                    R_t = discount * R_tplus1 + r_t
+                    # Compute the single gradient contribution by formula from step 3.3
+                    pg_theta = get_grad_logp_action(theta, s_t, a_t) * (R_t - b_t)
                     return R_t, pg_theta
 
                 # Test the implementation, but only once
