@@ -330,7 +330,16 @@ def main(env_id, batch_size, discount, learning_rate, n_itrs, render, use_baseli
                 """
                 d = len(theta.flatten())
                 F = np.zeros((d, d))
-                "*** YOUR CODE HERE ***"
+                
+                # Compute for each action 
+                for i in range(len(all_actions)):
+                    # First compute the inner value of the action gradient and make theta a flattened vector
+                    grads = get_grad_logp_action(theta, all_observations[i], all_actions[i]).flatten()
+                    # Accumulate the inner product of the gradient
+                    F += np.outer(grads, grads.T)
+                    
+                # Compute the mean (expected value)    
+                F /= len(all_actions)
                 return F
 
             def compute_natural_gradient(F, grad, reg=1e-4):
