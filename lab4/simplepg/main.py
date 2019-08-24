@@ -45,6 +45,13 @@ def point_get_grad_logp_action(theta, ob, action):
     :param ob: A vector of size |S|
     :param action: A vector of size |A|
     :return: A matrix of size |A| * (|S|+1)
+    
+    This implementation is based on suggested from
+    function point_get_logp_action.
+    
+    The only difference is in the computation of the
+    returned results. Refer to the lab instructions,
+    part 3.3
     """
     ob1 = include_bias(ob)
     mean = theta.dot(ob1)
