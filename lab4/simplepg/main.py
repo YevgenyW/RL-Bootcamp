@@ -46,9 +46,10 @@ def point_get_grad_logp_action(theta, ob, action):
     :param action: A vector of size |A|
     :return: A matrix of size |A| * (|S|+1)
     """
-    grad = np.zeros_like(theta)
-    "*** YOUR CODE HERE ***"
-    return grad
+    ob1 = include_bias(ob)
+    mean = theta.dot(ob1)
+    zs = action - mean
+    return np.outer(zs, ob1)
 
 
 def point_get_action(theta, ob, rng=np.random):
