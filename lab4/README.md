@@ -112,7 +112,7 @@ Pong agent from scratch
 ./docker_run.sh experiments/run_a2c_pong.py
 ```
 
-*This can take a few hours before you see any signs of life. In our experience, the performance stayed at around −20 during the first 300 up to even 700 epochs. Then, it will gradually improve to around 20 in a few hundred more epochs. *
+*This can take a few hours before you see any signs of life. In our experience, the performance stayed at around −20 during the first 300 up to even 700 epochs. Then, it will gradually improve to around 20 in a few hundred more epochs.*
 
 
 
