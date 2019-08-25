@@ -68,7 +68,7 @@ Discrete policy testing
 ./docker_run.sh experiments/run_trpo_cartpole.py
 ```
 
-*You should observe that the average return quickly converges to the op- timal value 200. *
+*You should observe that the average return quickly converges to the op- timal value 200*
 
 Continious Pendulum policy
 
@@ -76,7 +76,7 @@ Continious Pendulum policy
 ./docker_run.sh experiments/run_trpo_pendulum.py
 ```
 
-*Your implementation should be able to achieve an average return of at least around −180 after training for 100 iterations *
+*Your implementation should be able to achieve an average return of at least around −180 after training for 100 iterations*
 
 Roboschool Cheetah continious policy (requires a lot of time to train)
 
@@ -84,7 +84,7 @@ Roboschool Cheetah continious policy (requires a lot of time to train)
 ./docker_run.sh experiments/run_trpo_half_cheetah.py
 ```
 
-* This environment requires much more time to train. You should be able to achieve an average return of around 200 after 100 iterations, 1000 after 400 iterations, and 2000 after 2500 iterations (your actual result may vary).*
+*This environment requires much more time to train. You should be able to achieve an average return of around 200 after 100 iterations, 1000 after 400 iterations, and 2000 after 2500 iterations (your actual result may vary)*
 
 For visualizations instructions refer to lab instructions (part 5.3)
 
