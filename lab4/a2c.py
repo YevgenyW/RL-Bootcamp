@@ -236,10 +236,15 @@ def a2c(env, env_maker, policy, vf, joint_model=None, k=20, n_envs=16, discount=
                 vf_loss should be the (unweighted) squared loss of value function prediction.
                 total_loss should be the weighted sum of policy_loss and vf_loss
                 """
-                policy_loss = Variable(np.array(0.))
-                vf_loss = Variable(np.array(0.))
-                total_loss = Variable(np.array(0.))
-                "*** YOUR CODE HERE ***"
+                # Use the standard surrogate loss formula, but take entropy coefficient in consideration
+                policy_loss = -F.mean(logli * all_advs) - ent_coeff * F.mean(ent)
+                
+                # Compute the expected mean squared error (last term in formula 14)
+                vf_loss = F.mean_squared_error(all_returns, all_values)
+                
+                # Output loss 
+                total_loss = policy_loss + vf_loss_coeff * vf_loss
+
                 return policy_loss, vf_loss, total_loss
 
             test_once(compute_total_loss)
