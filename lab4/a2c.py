@@ -79,9 +79,32 @@ def compute_returns_advantages(rewards, dones, values, next_values, discount):
     :param discount: The discount factor.
     :return: A tuple (returns, advantages), each of which should be a matrix of shape T * N
     """
-    Rs = np.zeros_like(rewards)
-    As = np.zeros_like(rewards)
-    "*** YOUR CODE HERE ***"
+    
+    # Number of time steps
+    T = rewards.shape[0]
+    
+    # Number of episodes
+    N = rewards.shape[1]
+    
+    # Predicted values
+    Rp = np.zeros((T+1, N))
+    Ap = np.zeros_like(rewards)
+    
+    # Set next values right after the last time step
+    Rp[T] = next_values
+    
+    # Iterate over time steps
+    for t in range(T-1, -1, -1):
+        # Compute reward at each time step
+        Rp[t] = rewards[t] + (1 - dones[t]) * discount * Rp[t+1]
+        
+        # Compute the advantage based on reward
+        # To track in which direction the agent is actually moving
+        Ap[t] = Rp[t] - values[t]
+    # Return the rewards right until the time step T (no need to return next_values)
+    # And the corresponding advantages
+    return Rp[:T], Ap
+
 
 
 def a2c(env, env_maker, policy, vf, joint_model=None, k=20, n_envs=16, discount=0.99,
